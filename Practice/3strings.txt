@@ -1,0 +1,42 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+String  ---  methods
+------
+
+s = 'hello! my name is Sai'
+
+s
+output:
+'hello! my name is Sai'
+
+
+s.upper()
+
+output:
+'HELLO! MY NAME IS SAI'
+
+
+s.split()
+
+output:
+['hello!', 'my', 'name', 'is', 'Sai']
+
+
+tweet = 'Go Sports! #Sports'
+
+tweet.split()
+
+output:
+['Go', 'Sports!', '#Sports']
+
+
+tweet.split('!')
+
+output:
+['Go Sports', ' #Sports']
+
+
+tweet.split('#')

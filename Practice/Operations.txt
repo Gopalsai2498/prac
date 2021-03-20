@@ -1,0 +1,199 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+
+O P E R A T I O N S
+===================
+
+
+df = pd.DataFrame({'col1':[1,2,3,4],'col2':[444,555,666,444],'col3':['abc','def','ghi','xyz']})
+df
+output:
+
+	col1	col2	col3
+0	1	444	abc
+1	2	555	def
+2	3	666	ghi
+3	4	444	xyz
+
+
+#Find unique values in a dataframe - no duplicates
+df['col2'].unique()
+output:
+array([444, 555, 666], dtype=int64)
+
+
+#length of unique values
+len(df['col2'].unique())    (O R)   df['col2'].nunique()
+output:
+3
+
+
+#count/freq of unique value in a column
+df['col2'].value_counts()
+output:
+444    2
+555    1
+666    1
+Name: col2, dtype: int64
+
+
+
+#conditional selection
+----------------------
+df[df['col1']>2]
+output:
+	col1	col2	col3
+2	3	666	ghi
+3	4	444	xyz
+
+'&' --- operator
+
+df[(df['col1']>2) & (df['col2']==444)]
+output:
+	col1	col2	col3
+3	4	444	xyz
+
+#experiment
+pd.DataFrame(df.iloc[1]).transpose()
+output:
+	col1	col2	col3
+1	2	555	def
+
+#sum a column
+df['col2'].sum()
+output
+2109
+
+
+#broadcast a function on column
+
+def tms2(x):
+    return x*2
+
+df['col2'].apply(tms2)
+output:
+0     888
+1    1110
+2    1332
+3     888
+Name: col2, dtype: int64
+
+
+#lambda expression
+------------------
+
+df['col2'].apply(lambda x:x**2)
+output:
+0    197136
+1    308025
+2    443556
+3    197136
+Name: col2, dtype: int64
+
+
+df
+output:
+	col1	col2	col3
+0	1	444	abc
+1	2	555	def
+2	3	666	ghi
+3	4	444	xyz
+
+
+#predefined functions
+df['col3'].apply(len)  #to count string values in a cell
+output:
+0    3
+1    3
+2    3
+3    3
+Name: col3, dtype: int64
+
+
+#view column names
+df.columns
+output:
+Index(['col1', 'col2', 'col3'], dtype='object')
+
+#index names
+df.index
+output:
+RangeIndex(start=0, stop=4, step=1)
+
+#sorting
+--------
+df
+output:
+	col1	col2	col3
+0	1	444	abc
+1	2	555	def
+2	3	666	ghi
+3	4	444	xyz
+
+df.sort_values('col2')      (O R)   df.sort_values(by='col2')
+output:
+	col1	col2	col3
+0	1	444	abc
+3	4	444	xyz
+1	2	555	def
+2	3	666	ghi
+
+
+#missing values
+df.isnull()
+output:
+	col1	col2	col3
+0	False	False	False
+1	False	False	False
+2	False	False	False
+3	False	False	False
+
+df.isnull().sum()
+output:
+col1    0
+col2    0
+col3    0
+dtype: int64
+
+pd.DataFrame(df.isnull().sum()).transpose()    #in r colSums(is.na(df))
+output:
+	col1	col2	col3
+0	0	0	0
+
+df.dropna() ---- drop rows with missing values
+
+
+
+#pivot table
+============
+
+data = {'A':['foo','foo','foo','bar','bar','bar'],
+     'B':['one','one','two','two','one','one'],
+       'C':['x','y','x','y','x','y'],
+       'D':[1,3,2,5,4,1]}
+
+df = pd.DataFrame(data)
+df
+output:
+	A	B	C	D
+0	foo	one	x	1
+1	foo	one	y	3
+2	foo	two	x	2
+3	bar	two	y	5
+4	bar	one	x	4
+5	bar	one	y	1
+
+#create pivot table
+df.pivot_table(values='D', columns=['C'],index=['A','B'])
+output:
+	C	x	y
+A	B		
+bar	one	4.0	1.0
+	two	NaN	5.0
+foo	one	1.0	3.0
+	two	2.0	NaN
+
+

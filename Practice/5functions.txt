@@ -1,0 +1,79 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+Python-Part-3
+=====================================
+          F U N C T I O N S
+          -----------------
+
+Functions not allow us to write code over and over again. we can just write it inside of a function and call that function itself.
+The key word for function is def and def allows to find a function 
+
+def <func name>(parameters):
+    <print/return>              #execute code
+
+def myfun(param2)
+    print(param2)
+----------------------------------
+'+name' is used to concatenate two strings together
+
+def myfun(name):
+    print('Hello '+name)
+
+myfun('SaiRam')
+output:
+Hello SaiRam
+---------------------------------
+def myfun(name='Default Name'):
+    print('Hello '+name)
+
+myfun()
+output:
+Hello Default Name
+
+myfun('Sairam')
+output:
+Hello Sairam
+-----------------------------------
+
+difference between print and return
+
+when we return something, we can assign the set fun to other variable, but print cannot be assigned to other variables, can just print
+
+def square(num):
+    return num**2
+
+x = square(12)
+print(x)
+
+output:   
+144
+
+# Sum function
+def mysum(x, y):
+   return x + y
+
+# Test sum function
+result = mysum(1, 3)
+print(result)
+----------------------------------
+
+documentation string inside square
+
+set of triple closing quotes - allows to put in a joint string over multiple lines - multi-line comment
+
+the output changes when actually called the documentaiton string for more info about this function 
+
+
+def square(num):
+    """
+    This function is to 
+    square a given numerical
+    value
+    """
+    return num**2
+
+square shf+tab to view the doc
+
+range shf+tab 

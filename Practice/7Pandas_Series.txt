@@ -1,0 +1,128 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+*Pandas is an open source library on top of Numpy
+*it allows for fast analysis and data cleaning and preparation
+*it excels in performance and productivity
+*it also has built-in visualization features
+*it can work with data from a wide variety of sources
+
+to install pandas:
+
+right click on Anaconda Prompt and open it as "Run as Administrator"
+
+command line :    conda install pandas
+terminal     :    pip install pandas
+
+#Pandas operations
+* Series
+* Dataframes
+* Missing Data
+* GroupBy
+* Merging,Joining & concatenation
+* Operations
+* Data input and output
+
+#Series --- are the first data type in working with pandas --- label index and data points
+-------
+difference between numpy arrays and pandas series is that series can access labels means it can index by label 
+
+labels = ['a','b','c']
+my_data = [10,20,30]
+arr = np.array(my_data)
+d = {'a':10,'b':20,'c':30}
+
+
+#series on list
+pd.Series(my_data)
+
+output:
+0    10
+1    20
+2    30
+dtype: int64
+
+
+We can see in pandas series data with index values as 0,1,2
+
+#rename labels from 0,1,2 to a,b,c
+pd.Series(data=my_data,index=labels)
+
+a    10
+b    20
+c    30
+dtype: int64
+
+
+#series on arrays
+pd.Series(arr,labels)
+output:
+a    10
+b    20
+c    30
+dtype: int32
+
+
+#series with dictionaries
+pd.Series(d)
+output:
+a    10
+b    20
+c    30
+dtype: int64
+
+series can hold any type of data object for example
+pd.Series(labels)
+output:
+0    a
+1    b
+2    c
+dtype: object
+
+
+pd.Series(data=[sum,print,len])
+output:
+0      <built-in function sum>
+1    <built-in function print>
+2      <built-in function len>
+dtype: object
+
+
+#adding two series
+ser1=pd.Series(data=[1,2,3,4], index=['USA','USSR','UK','Japan'])
+output:
+USA      1
+USSR     2
+UK       3
+Japan    4
+dtype: int64
+
+ser2=pd.Series(data=[1,5,3,6], index=['USA','USSR','Italy','France'])
+output:
+France    NaN
+Italy     NaN
+Japan     NaN
+UK        NaN
+USA       2.0
+USSR      7.0
+dtype: float64
+
+ser1+ser2
+output:
+France    NaN
+Italy     NaN
+Japan     NaN
+UK        NaN
+USA       2.0
+USSR      7.0
+dtype: float64
+
+It adds the values of match indexing, and returns null value for non-match indexing
+
+Note: on performing arithematical operations, integers get converted into floats.
+
+
+
+
+

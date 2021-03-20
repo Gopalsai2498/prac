@@ -1,0 +1,317 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+        P L O T S
+      =============
+
+* Matplotlib is the most popular plotting library for Python
+* It was designed to have a similar feel to MatLab's graphical plotting
+  MatLab's is another graphical programming
+
+* Seaborn library was built off of Matplotlib
+
+install matplotlib
+------------------
+
+conda install matplotlib
+
+       (O R)
+
+pip install matplotlib
+
+W E B S I T E
+-------------
+https://matplotlib.org/gallery#                  -- gallery
+https://matplotlib.org/api/pyplot_summary.html   -- pyplot
+
+#import Matplotlib library 
+-------------------------------
+import matplotlib.pyplot as plt
+
+#to see the plots which are going to create inside the jupyter notebook
+--------------------------------
+%matplotlib inline
+
+#if we are not using the jupyter notebook system what we can do is at the end of all the commands for plotting need to type
+--------------------------------
+plt.show()
+
+
+import numpy as np
+x = np.linspace(0,5,11)
+y = x ** 2
+
+x
+output:
+array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5, 5. ])
+
+y
+output:
+array([ 0.  ,  0.25,  1.  ,  2.25,  4.  ,  6.25,  9.  , 12.25, 16.  ,
+       20.25, 25.  ])
+
+#two ways of creating matplotlib plot
+1. functional method
+2. object-oriented method
+
+1. FUNCTIONAL METHOD
+--------------------
+plt.plot(x,y)
+The above command prints plot if %matplotlib inline was activated else need to write an additional command plt.show() to print the plot instead of showing the plot
+
+#add color
+plt.plot(x,y, 'r-')
+
+#labelling
+plt.plot(x,y)
+plt.xlabel('x values')
+plt.ylabel('y values')
+plt.title('Scatter plot of x and y valuyes')
+
+#multi-plots on the same canvas
+#plot.subplot(no.of rows, no.of cols, plot no. referring to)
+
+plt.subplot(1,2,1)
+plt.plot(x,y,'r')
+
+plt.subplot(1,2,2)
+plt.plot(x,y,'b')
+
+
+
+2. OBJECT-ORIENTED METHOD
+   ===============================
+
+#Object-oriented API method - can initiate figure objects and then call methods or attributes from that object and it is the much better way of using the matplotlib plots
+#the main idea behind #Object-oriented method is to create figure objects and call methods 
+
+#create figure object - kind of imaginary blank canvas 
+fig = plt.figure()
+#it creates a figure
+
+#add a set of axes to this blank canvas 
+#to add axes in the sense of list
+#list takes 4 argments [left, bottom, width, height]
+#e.g. fig.add_axes([left, bottom, width, height]) that range from 0 through 1 basically the percent on that blank canvas 
+
+axes = fig.add_axes([.1,.1,.8,.8])   #starts 10% from the left, 10% from the bottom, 80% of canvas size in width & height  
+#we added method called axis on the above figure
+#now can plot on this created figure
+
+#plotting on the created figure
+axes.plot(x,y, 'pink')
+
+#add labels
+axes.set_xlabel('set x values')
+axes.set_ylabel('set y values')
+axes.set_title('scatter plot using Object-oriented method')
+
+
+#create one more figure with subset
+fig = plt.figure()
+
+axes1 = fig.add_axes([.1,.1,.8,.8])
+axes2 = fig.add_axes([.2,.5,.4,.3])
+
+axes1.plot(x,y)
+axes1.set_title('Large')
+
+axes2.plot(y,x, 'r')
+axes2.set_title('Small')
+
+
+#create subplots using object-oriented method  --- Part-2
+---------------------------------------------
+
+#create subplots
+fig,axes = plt.subplots()
+
+axes.plot(x,y)
+
+
+#What subplots differs is, can specify the no. of rows and columns
+
+#specify 1 row, 2 columns
+fig,axes = plt.subplots(nrows=1,ncols=2)
+
+#specify 3 rows, 3 columns
+fig,axes = plt.subplots(nrows=3,ncols=3)
+
+#fix overlaps
+plt.tight_layout()
+
+axes    --- enter
+#if we look at axes, it's just an array of matplotlib axes. it's just list of axes object, meaning can iterate through it
+
+#but when used fig.add_axes([.2,.2,.8,.8]) was manually created 
+
+#iterative plots
+fig,axes = plt.subplots(nrows=1,ncols=2)
+
+#indexing plots
+#specify no. of rows and column
+fig,axes = plt.subplots(nrows=1,ncols=2)
+
+#indexing plots
+axes[0].plot(x,y)
+axes[1].plot(y,x)
+
+
+
+
+Figure size and DPI
+===================
+
+#fig = plt.figure(figsize=(width,height) inches of the figure, dpi= 100 dots per inch) 
+
+fig = plt.figure(figsize=(3,2))
+
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,y)
+
+
+#modify width size
+fig = plt.figure(figsize=(8,2))
+
+ax = fig.add_axes([0,0,1,1])
+ax.plot(x,y)
+
+
+#subplots
+fig,axes=plt.subplots(figsize=(8,2))
+
+axes.plot(x,y)
+
+
+#subplots
+fig,axes=plt.subplots(nrows=2, ncols=1, figsize=(8,2))
+axes[0].plot(x,y)
+axes[1].plot(y,x, 'r')
+
+plt.tight_layout()
+
+
+#save plot - savefig method - png, jpeg, eps, spg, tgf, pdf
+fig,axes=plt.subplots(nrows=2, ncols=1, figsize=(8,2))
+axes[0].plot(x,y)
+axes[1].plot(y,x, 'r')
+
+plt.tight_layout()
+
+#pwd - to find current location
+#saves figure to the current location
+fig.savefig('my_pic', dpi=200)
+
+
+fig = plt.figure()
+
+ax = fig.add_axes([0,0,1,1])
+
+ax.plot(x,y)
+ax.set_title('scatterplot')
+ax.set_ylabel('Y values')
+ax.set_xlabel('X values')
+
+
+Legends
+===========
+
+fig = plt.figure()
+
+ax = fig.add_axes([0,0,1,1])
+
+ax.plot(x,x**2, label='X^2')
+ax.plot(x,x**3, label='X^3')
+
+#loc=(0,1,2,3,4,5,6,7,8,910) to set position - also ax.legend(loc=(0.1,0.2))
+ax.legend(loc=10)
+
+
+MATPLOTLIB COLORS               --- Part-3
+===========================
+
+#Colors
+fig = plt.figure()
+
+ax = fig.add_axes([0,0,1,1])
+
+#ax.plot(x,y, color='pink')
+
+#google search RGH hex code or https://www.rapidtables.com/web/color/RGB_Color.html, more colors
+ax.plot(x,y, color='#800000')
+
+
+#line width & line style
+--------------------------
+fig = plt.figure()
+
+ax = fig.add_axes([0,0,1,1])
+
+#x
+#output:
+#array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5, 5. ])
+#mark x values on the plot
+
+#markers --- marker='o','+','*', '1', '2', markersize, markerfacecolor
+ax.plot(x,y, color='purple', lw=.5,marker='8', markersize=7, markerfacecolor='red', markeredgewidth=1.5,
+        markeredgecolor='yellow')  
+#for more details can refer to Matplotlib concepts lecture
+
+
+#Axis appearance and plot range
+-------------------------------
+#set y limit and x limit
+
+fig = plt.figure()
+
+ax = fig.add_axes([0,0,1,1])
+
+ax.plot(x,y, color='purple', lw=2,ls='--')
+
+#let us show the plot between 0 and 1 on the x-axis - it's like zoom in
+ax.set_xlim([0,1])
+ax.set_ylim([0,2])
+
+
+
+Special plots
+-------------
+#scatterplot
+plt.scatter(x,y)
+
+#histograms
+plt.hist(y)
+
+#boxplots
+plt.boxplot(x)
+
+
+import numpy as np
+
+data = [np.random.normal(0,std,100) for std in range(1,4)]
+
+plt.boxplot(data,vert=True, patch_artist=True)
+
+
+
+Further reading
+---------------
+http://www.matplotlib.org - The project web page for matplotlib.
+https://github.com/matplotlib/matplotlib - The source code for matplotlib.
+http://matplotlib.org/gallery.html - A large gallery showcaseing various types of plots matplotlib can create. Highly recommended!
+
+http://www.loria.fr/~rougier/teaching/matplotlib - A good matplotlib tutorial.  V E R Y  IMP
+
+http://scipy-lectures.github.io/matplotlib/matplotlib.html - Another good matplotlib reference.
+
+
+
+grids
+=====
+
+
+
+
+

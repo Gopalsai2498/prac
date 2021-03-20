@@ -1,0 +1,355 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+Searborn
+============
+# Seaborn is a statistical plotting library
+# it has beautiful default styles
+# it also is designed to work very well with pandas df objects
+
+
+install it with pip or conda
+================================
+
+conda install seaborn
+
+       O R
+
+pip install seaborn
+
+
+
+Official website for seaborn module
+-----------------------------------
+
+github seaborn python in google search
+
+leads to
+
+https://github.com/mwaskom/seaborn
+click on official link under Document leads to https://seaborn.pydata.org/
+
+1) then click on gallery  - use this gallery as a reference
+
+2) API tab - reference for various plot types
+
+
+
+
+
+Distribution plots
+=======================
+
+load a dataset from seaborn
+---------------------------
+
+import seaborn as sns
+%matplotlib inline
+
+tips = sns.load_dataset('tips')  or iris = sns.load_dataset('iris')
+tips.head()
+
+output:
+    total_bill	tip	sex	smoker	day	time	size
+0	16.99	1.01	Female	No	Sun	Dinner	2
+1	10.34	1.66	Male	No	Sun	Dinner	3
+2	21.01	3.50	Male	No	Sun	Dinner	3
+3	23.68	3.31	Male	No	Sun	Dinner	2
+4	24.59	3.61	Female	No	Sun	Dinner	4
+
+
+#Descriptive statistics
+tips.describe()
+output:
+	total_bill	tip		size
+count	244.000000	244.000000	244.000000
+mean	19.785943	2.998279	2.569672
+std	8.902412	1.383638	0.951100
+min	3.070000	1.000000	1.000000
+25%	13.347500	2.000000	2.000000
+50%	17.795000	2.900000	2.000000
+75%	24.127500	3.562500	3.000000
+max	50.810000	10.000000	6.000000
+
+
+#Histogram of total_bill
+sns.distplot(tips['total_bill'])
+
+
+#drop kernal density line
+sns.distplot(tips['total_bill'], kde=False)
+
+#modify bins
+sns.distplot(t
+
+ips['total_bill'], bins=40)
+
+#drop bins
+sns.kdeplot(tips['total_bill'])
+
+Joint plots
+===============
+#Bivariate plot 
+
+#sns.jointplot(x=x_variable,y=y_variable,dataset)
+
+sns.jointplot('total_bill', 'tip', tips)   #produces scatterplot along with histograms
+
+#hexagon type
+sns.jointplot('total_bill', 'tip', tips, kind='hex')
+
+#regression line
+sns.jointplot('total_bill', 'tip', tips, kind='reg')
+
+#kde - 2-dimensional kde
+sns.jointplot('total_bill', 'tip', tips, kind='kde')
+
+
+Pairplots
+=================
+#Plots pair-wise relationships across an entire dataframe for numerical columns and it also supports a color hue argument for categorical columns
+#pairplots do jointplots for every single combination of the numerical columns in the dataset
+
+sns.pairplot(tips)
+
+#hue argument for categorical variable in pairplot
+sns.pairplot(tips, hue='sex', palette='coolwarm')
+
+#rugplots
+#rugplot draws a dash mark for every point on univariate distribution, it means the thicker the stack the more datapoints
+
+sns.rugplot(tips['total_bill']) 
+
+
+
+
+#create kernel density plot -- seaborn - 48 distribution plots -can see the code in seaborn folder
+set up the bandwidth for info on this:
+url = 'http://en.wikipedia.org/wiki/Kernel_density_estimation#Practical_estimation_of_the_bandwidth'
+bandwidth = ((4*dataset.std()**5)/(3*len(dataset)))**.2
+
+
+
+categorical plots
+-----------------
+#barplot allows to aggregate the categorical data based off of some function by default that's the mean 
+
+sns.barplot('sex', 'total_bill', data=tips)
+
+
+#standard deviation barplot
+import numpy as np
+sns.barplot('sex', 'total_bill', data=tips, estimator=np.std)
+
+
+#count plot
+sns.countplot('sex', data=tips)
+
+
+#boxplots and violin plots
+--------------------------
+#these plots are going to show categorical data 
+#boxplot shows the distribution of quantitative data, compares b/w variables
+
+#boxplot
+sns.boxplot('day', 'total_bill', data=tips)
+
+
+#x=class variable, y=continuous variable, hue=another categorical variable
+sns.boxplot('day','tip', data=tips,hue='smoker')
+
+
+#violin plots
+sns.violinplot('day', 'tip', data=tips)
+#violinplots plots all points that corresponds to the actual data points and shows the kernel density estimation of the 
+
+sns.violinplot('day', 'tip', data=tips, hue='sex')
+
+
+#strip plot
+#strip plots draw a scatter plot where one variable is categorical
+sns.stripplot(x='day',y='total_bill',data=tips)
+#one thing with stripplot is that we cannot tell how many points are stacked on each other we can add another argument jitter
+
+#jitter it will add little bit of random noise to separate some of these stacks
+sns.stripplot(x='day',y='total_bill',data=tips, jitter=True)
+
+
+#hue=another categorical variable
+sns.stripplot(x='day',y='total_bill',data=tips, jitter=True, hue='sex')
+
+
+
+
+sns.stripplot(x='day',y='total_bill',data=tips, jitter=True, hue='sex', split=True)
+
+#combine strip plot with violinplot and create a swarm plot 
+#swarm plot is very similar to strip plot except the points are adjusted so that they dont overlap 
+sns.swarmplot('day','total_bill',data=tips)
+
+sns.swarmplot('day','total_bill',data=tips, hue='sex')
+
+sns.swarmplot('day','total_bill',data=tips, hue='sex',split=True)
+
+
+sns.violinplot('day','total_bill',data=tips)
+sns.swarmplot('day','total_bill',data=tips, color='black')
+
+
+
+#factor plot
+-------------
+sns.factorplot('day','total_bill', data=tips)
+
+kind= type of plot
+-=================
+
+#barplot with factorplot
+sns.factorplot('day','total_bill', data=tips, kind='bar')
+
+#violin plot with factorplot
+sns.factorplot('day','total_bill', data=tips, kind='violin')
+
+
+
+Matrix plots
+------------
+Matrix data is used to perform heatmaps. 
+it means that the index, name, and the column name matchup so that the cell value actually indicates something that is relevant to both of those names. This can be achieved through pivot table or correlation data
+
+1) Correlation matrix -- 
+tc = tips.corr()
+tc
+output:
+		total_bill	tip	size
+total_bill	1.000000	0.675734	0.598315
+tip		0.675734	1.000000	0.489299
+size		0.598315	0.489299	1.000000 
+
+sns.heatmap(tc)
+
+#annotations - annot=True - to display correlation values
+sns.heatmap(tc, annot=True)
+
+#cmap for actual color mapping 
+sns.heatmap(tc, annot=True, cmap='coolwarm')
+
+
+2) pivot table
+flights.head()
+output:
+	year	month		passengers
+0	1949	January		112
+1	1949	February	118
+2	1949	March		132
+3	1949	April		129
+4	1949	May		121
+
+
+#pivot table
+------------
+fp=flights.pivot_table(index='month', columns='year', values='passengers')
+fp
+output:
+-------
+	year	1949	1950	1951	1952	1953	1954	1955	1956	1957	1958	1959	1960
+month								
+January		112	115	145	171	196	204	242	284	315	340	360	417
+February	118	126	150	180	196	188	233	277	301	318	342	391
+March		132	141	178	193	236	235	267	317	356	362	406	419
+April		129	135	163	181	235	227	269	313	348	348	396	461
+May		121	125	172	183	229	234	270	318	355	363	420	472
+June		135	149	178	218	243	264	315	374	422	435	472	535
+July		148	170	199	230	264	302	364	413	465	491	548	622
+August		148	170	199	242	272	293	347	405	467	505	559	606
+September	136	158	184	209	237	259	312	355	404	404	463	508
+October		119	133	162	191	211	229	274	306	347	359	407	461
+November	104	114	146	172	180	203	237	271	305	310	362	390
+December	118	140	166	194	201	229	278	306	336	337	405	432
+
+
+sns.heatmap(fp)
+
+sns.heatmap(fp, cmap='magma')   #color map 
+
+sns.heatmap(fp, cmap='magma', linecolor='white', linewidths=1)
+
+sns.heatmap(fp, cmap='coolwarm', linecolor='purple', linewidths=3)\
+
+
+2) cluster maps
+---------------
+
+#cluster map
+sns.clustermap(fp)
+#it will cluster rows and columns based off of their similarity, 
+#For months and years, we do not see any order because most similar months put together
+
+
+#basically tries to cluster columns and rows together based on their similarity and it shows years & months in this example in clusters 
+#months in the y-axis they are no longer in order,we can see sep, jun aug together it's because they are most similar months being put together
+#basically puts columns or rows together that are similar to each other
+
+sns.clustermap(fp, cmap='coolwarm', standard_scale=1) 
+
+
+
+#grids
+------
+iris = sns.load_dataset('iris')
+iris.head()
+
+output:
+	sepal_length	sepal_width	petal_length	petal_width	species
+0		5.1		3.5		1.4		0.2	setosa
+1		4.9		3.0		1.4		0.2	setosa
+2		4.7		3.2		1.3		0.2	setosa
+3		4.6		3.1		1.5		0.2	setosa
+4		5.0		3.6		1.4		0.2	setosa
+
+iris['species'].unique()
+array(['setosa', 'versicolor', 'virginica'], dtype=object)
+
+sns.pairplot(iris)
+
+g.map()
+
+#using grid mechanism, we're going to customize the pairplot to get more control over the actual plot 
+g = sns.PairGrid(iris)
+
+#diagonal plot - map distplot 
+g = sns.PairGrid(iris)
+g.map_diag(sns.distplot)
+
+g = sns.PairGrid(iris)
+g.map_diag(sns.distplot)
+g.map_upper(plt.scatter)
+g.map_lower(sns.kdeplot)
+
+#facet_grid
+tips = sns.load_dataset('tips')
+tips.head()
+
+g = sns.FacetGrid(data=tips,col='time',row='smoker')
+g.map(sns.distplot, 'total_bill')
+
+#scatterplot
+g = sns.FacetGrid(data=tips,col='time',row='smoker')
+g.map(plt.scatter, 'total_bill','tip')
+
+lmplot
+------
+sns.lmplot('total_bill', 'tip', data=tips)
+
+#hue= categorical variable 
+sns.lmplot('total_bill', 'tip', data=tips, hue='sex')
+
+#markers
+#as we are dealing with hue we need two separate markers we are going to need, so can pass in list of markers type
+sns.lmplot('total_bill', 'tip', data=tips, hue='sex', markers=['o', 'v'])
+
+
+
+

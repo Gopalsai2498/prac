@@ -1,0 +1,38 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+dictionaries
+
+d = {'k1': 1, 'k2': 2}
+
+d
+output:
+{'k1': 1, 'k2': 2}
+
+
+d['k1']
+output:
+1
+
+d.keys()
+output:
+dict_keys(['k1', 'k2'])
+
+d.values()
+output:
+dict_values([1, 2])
+
+
+d.items()
+output:
+dict_items([('k1', 1), ('k2', 2)])
+
+
+dic = {'key':[1,2,3], 'key2':[11,22,33]}
+
+dic
+{'key': [1, 2, 3], 'key2': [11, 22, 33]}
+
+dic['key']
+[1, 2, 3]

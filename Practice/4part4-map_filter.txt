@@ -1,0 +1,109 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+Python-Part4
+------------
+
+map and filter functions
+
+map() - map function - map is a built-in function in Python that allows to save the step of assigned functions
+
+def sq(x):
+    return x**2
+
+sq(4)
+
+output:
+16
+
+seq=[1,2,3,4]
+
+for num in seq:
+    print(num**2)
+
+#or
+
+[num**2 for num in seq]
+
+#map is used to recall the assigned function
+list(map(sq,seq))
+
+list(map(fun,x))
+
+lambda function
+----------------
+
+Definitions:
+
+basic:
+------
+def sq(x):
+    return x**2
+
+sq(25)
+
+output:
+625
+
+can be modified:
+----------------
+def var(x): return x**2
+
+var(25)
+
+output:
+625
+
+lambda expression
+-----------------
+t = lambda sq(x):x**2
+
+t(25)
+
+output:
+625
+
+the purpose of lambda expression is something different that is without recalling definitions, we can directly write the required command by
+using lambda like:
+
+casting:
+list(map(lambda var:var**2,s))
+
+
+built-in 
+F I L T E R  function
+------------------------
+filter out an element from a sequence
+
+filter pass-in a function or lambda expression that filters out and returns out a boolean value
+
+filter uses some sort of function or lambda expression that returns a boolean value true or false and then passes it into iterable object and when called on a list it will only return the value or statement that happened to be true  
+
+seq = [1,2,3,4]
+
+list(map(lambda var : var%2, seq))
+
+output:
+[1,0,1,0]
+
+
+list(filter(lambda var : var%2==1, seq))
+
+output:
+[1,3]
+
+
+list(filter(lambda var : var%2==0, seq))
+
+output
+[2,4]
+
+
+
+def sq(x):
+   return x**2
+
+lambda sq(x): x**2
+

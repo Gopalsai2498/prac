@@ -1,0 +1,135 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+M I S S I N G   V A L U E S
+======================================
+
+Pandas will automatically fill-in the missing point with NULL or NaN value.
+
+df
+output:
+	A	B	C
+0	1.0	11.0	101
+1	2.0	NaN	2
+2	NaN	NaN	3
+
+
+df.isnull()
+output:
+	A	B	C
+0	False	False	False
+1	False	True	False
+2	True	True	False
+
+df.isnull().sum()
+output:
+A    1
+B    2
+C    0
+dtype: int64
+
+type(df.isnull().sum())
+output:
+pandas.core.series.Series
+
+
+df.isnull().sum().transpose()
+output:
+A    1
+B    2
+C    0
+dtype: int64
+
+pd.DataFrame(df.isnull().sum()).transpose()
+output:
+	A	B	C
+0	1	2	0
+
+
+drop NA or fill NA value
+------------------------
+
+can create dataframe with dictionary as well
+
+d = {'A':[1,2,np.nan],'B':[11,np.nan,np.nan],'C':[101,2,3]}
+
+d
+output:
+d = {'A':[1,2,np.nan],'B':[11,np.nan,np.nan],'C':[101,2,3]}
+
+df = pd.DataFrame(df)
+df
+output:
+	A	B	C
+0	1.0	11.0	101
+1	2.0	NaN	2
+2	NaN	NaN	3
+
+
+drop rows which has NA values
+-----------------------------
+df.dropna()   #by default axis=0 is set it forms on rows
+output:
+	A	B	C
+0	1.0	11.0	101
+
+
+drop columns which has NA values
+--------------------------------
+df.dropna(axis=1)
+output:
+	C
+0	101
+1	2
+2	3
+
+#can set threshold
+df.dropna
+shift+tab to check documentation to see 'thresh' argument 
+
+#thresh=2 - drops rows containing more 2 NA values
+df.dropna(thresh=2)
+output:
+	A	B	C
+0	1.0	11.0	101
+1	2.0	NaN	2
+
+#thresh=2, axis=1- drops columns containing more 2 NA values
+df.dropna(thresh=2, axis=1)
+output:
+	A	C
+0	1.0	101
+1	2.0	2
+2	NaN	3
+
+
+#Fill NAs
+#fill NA with given value
+df.fillna(value='FillNA')
+output:
+	A	B	C
+0	1	11	101
+1	2	FillNA	2
+2	FillNA	FillNA	3
+
+df.fillna(3)
+output:
+	A	B	C
+0	1.0	11.0	101
+1	2.0	3.0	2
+2	3.0	3.0	3
+
+
+#calculate mean of a particular column
+df['A'].mean()
+output:
+1.5
+
+#fill NA with mean of a particular column
+df['A'].fillna(value=df['A'].mean())
+output:
+0    1.0
+1    2.0
+2    1.5
+Name: A, dtype: float64

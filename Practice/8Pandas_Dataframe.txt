@@ -1,0 +1,417 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+#create dataframe with pandas
+
+import numpy as np
+import pandas as pd
+
+from numpy.random import randn
+
+#set seed - seed means we're going to set the same random numbers
+np.random.seed(10)
+df = pd.DataFrame(randn(5,4),index=['A','B','C','D','E'], columns=['W','X','Y','Z'])
+df
+output:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+#indexing and selection
+
+#select column by column name
+-----------------------------
+df['W']
+output:
+A    1.331587
+B    0.621336
+C    0.004291
+D   -0.965066
+E   -1.136602
+Name: W, dtype: float64
+
+The above result is kind of like a series and if we look the data type
+
+type(df['W'])
+output:
+pandas.core.series.Series
+
+dataframe is a bunch of seris that share the same index
+
+also can grab using sequel method 
+
+df.W
+output:
+A    1.331587
+B    0.621336
+C    0.004291
+D   -0.965066
+E   -1.136602
+Name: W, dtype: float64
+
+#select multiple columns from dataframe
+df[['W','Z']]
+output:
+
+		W		Z
+A	1.331587	-0.008384
+B	0.621336	0.108549
+C	0.004291	1.203037
+D	-0.965066	0.445138
+E	-1.136602	-1.079805
+
+
+#keyerror means can't find the key in the program
+
+#Create a new column
+--------------------
+#Create new column
+df['X+Y']=df['X']+df['Y']
+df
+output:
+		W		X		Y		Z		X+Y
+A	1.331587	0.715279	-1.545400	-0.008384	-0.830121
+B	0.621336	-0.720086	0.265512	0.108549	-0.454574
+C	0.004291	-0.174600	0.433026	1.203037	0.258426
+D	-0.965066	1.028274	0.228630	0.445138	1.256904
+E	-1.136602	0.135137	1.484537	-1.079805	1.619674
+
+
+
+
+#drop a column -- axis=1
+df.drop('X+Y') 
+# throws an error like KeyError: "['X+Y'] not found in axis" and if shift+tab on drop method shows axis=0
+by default in drop method axis=0 which applies to rows/index, modify axis=1 to refer columns
+
+df.drop('X+Y', axis=1)
+output:
+
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+#inplace=True
+by default inplace=False in drop method, which do not modify the original dataframe, need to replace the inplace option as true - inplace=True.
+
+df.drop('X+Y', axis=1, inplace=True)
+output:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+#grabbing rows from dataframe
+-----------------------------
+df.loc['A']
+output:
+W    1.331587
+X    0.715279
+Y   -1.545400
+Z   -0.008384
+Name: A, dtype: float64
+
+or
+
+df.iloc[0]
+output:
+W    1.331587
+X    0.715279
+Y   -1.545400
+Z   -0.008384
+Name: A, dtype: float64
+
+Grabbed 'A' rows for all columns
+
+#selecting subset of rows and columns from dataset
+df.loc['A','Z']
+output:
+-0.008383849928522256
+
+df.iloc[0,3]
+output:
+-0.008383849928522256
+
+
+df.loc[['A','D'],['W','Y']]
+output:
+		W		Y
+A	1.331587	-1.54540
+D	-0.965066	0.22863
+
+
+df.iloc[[0,3],[0,2]]
+output:
+		W		Y
+A	1.331587	-1.54540
+D	-0.965066	0.22863
+
+
+#conditional selection
+----------------------
+
+
+df
+output:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+df[df>0]
+output:
+		W		X	Y		Z
+A	1.331587	0.715279	NaN		NaN
+B	0.621336	NaN		0.265512	0.108549
+C	0.004291	NaN		0.433026	1.203037
+D	NaN		1.028274	0.228630	0.445138
+E	NaN		0.135137	1.484537	NaN
+
+Returns the values where the condition is true, rest returns NULL values
+
+#filtering 
+#grab rows for all columns on conditional selection
+df[df['X']>0]
+ouotput:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+Grabbed rows for all columns where column  X>0
+
+df[df['Z']<0]
+output:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+filt_df = df[df['X']>0]
+
+filt_df['X']
+output:
+A    0.715279
+D    1.028274
+E    0.135137
+Name: X, dtype: float64
+
+      O R 
+
+df[df['X']>0]['X']
+output:
+A    0.715279
+D    1.028274
+E    0.135137
+Name: X, dtype: float64
+
+
+df[df['X']>0][['X','W']]
+output:
+		X		W
+A	0.715279	1.331587
+D	1.028274	-0.965066
+E	0.135137	-1.136602
+
+
+#selection on multiple condition
+---------------------------------
+
+#python 'and' operator cannot be used to compare two pandas series
+
+single booleans at a time
+
+True and False
+output:
+False
+
+True and True
+output:
+True
+
+df[(df['W']>0) and (df['Y']>.1)]]
+output:
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all()
+
+to avoid error need to use '&' sign
+
+df[(df['W']>0) & (df['Y']>.1)]
+output:
+		W		X		Y		Z
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+
+
+NOTE: when using python multiple conditions, we cannot use 'and', but have to use '&' operator
+
+&, |, 
+
+df[(df['W']>0) | (df['Y']>1)]
+
+
+
+
+#Index
+------
+convert index into a column of the dataframe
+
+df
+output:
+		W		X		Y		Z
+A	1.331587	0.715279	-1.545400	-0.008384
+B	0.621336	-0.720086	0.265512	0.108549
+C	0.004291	-0.174600	0.433026	1.203037
+D	-0.965066	1.028274	0.228630	0.445138
+E	-1.136602	0.135137	1.484537	-1.079805
+
+
+df.reset_index()
+output:
+	index		W		X		Y		Z
+0	A	1.331587	0.715279	-1.545400	-0.008384
+1	B	0.621336	-0.720086	0.265512	0.108549
+2	C	0.004291	-0.174600	0.433026	1.203037
+3	D	-0.965066	1.028274	0.228630	0.445138
+4	E	-1.136602	0.135137	1.484537	-1.079805
+
+
+new way to write a list
+-----------------------
+newind = 'CA NY WY OR CO'.split()
+newind
+output:
+['CA', 'NY', 'WY', 'OR', 'CO']
+
+#create new variable
+--------------------
+df['States']=newind
+df
+output:
+		W		X		Y		Z	States
+A	1.331587	0.715279	-1.545400	-0.008384	CA
+B	0.621336	-0.720086	0.265512	0.108549	NY
+C	0.004291	-0.174600	0.433026	1.203037	WY
+D	-0.965066	1.028274	0.228630	0.445138	OR
+E	-1.136602	0.135137	1.484537	-1.079805	CO
+
+
+#set existing column as index - it overwrites the old index and sets given column as a new index
+-----------------------------
+df.set_index('States')
+df
+output:
+		W		X		Y		Z
+States				
+CA	1.331587	0.715279	-1.545400	-0.008384
+NY	0.621336	-0.720086	0.265512	0.108549
+WY	0.004291	-0.174600	0.433026	1.203037
+OR	-0.965066	1.028274	0.228630	0.445138
+CO	-1.136602	0.135137	1.484537	-1.079805
+
+
+
+#multi-level index
+------------------
+#index levels
+outside = ['G1', 'G1','G1','G2','G2','G2']
+inside = [1,2,3,1,2,3]
+hier_index = list(zip(outside,inside))
+hier_index
+output:
+[('G1', 1), ('G1', 2), ('G1', 3), ('G2', 1), ('G2', 2), ('G2', 3)]
+
+hier_index = pd.MultiIndex.from_tuples(hier_index)
+hier_index
+output:
+MultiIndex(levels=[['G1', 'G2'], [1, 2, 3]],
+           codes=[[0, 0, 0, 1, 1, 1], [0, 1, 2, 0, 1, 2]])
+
+
+df = pd.DataFrame(randn(6,2), hier_index,['A','B'])
+df
+output:
+			A		B
+G1	1	0.277855	0.224292
+	2	1.203596	0.527428
+	3	-0.459657	1.956026
+G2	1	-1.029223	0.157199
+	2	1.055818	-1.628990
+	3	-1.270086	-2.552766
+
+#grab data from multilevel index
+--------------------------------
+
+df.loc['G1']
+output:
+		A		B
+1	0.277855	0.224292
+2	1.203596	0.527428
+3	-0.459657	1.956026
+
+
+df.loc['G1'].loc[1]
+output:
+A    0.277855
+B    0.224292
+Name: 1, dtype: float64
+
+
+df.index.names
+output:
+FrozenList([None, None])
+###None means no names are assigned 
+
+#assign names to index
+df.index.names = ['Groups','Num']
+df
+output:
+
+		A		B
+Groups	Num		
+G1	1	0.277855	0.224292
+	2	1.203596	0.527428
+	3	-0.459657	1.956026
+G2	1	-1.029223	0.157199
+	2	1.055818	-1.628990
+	3	-1.270086	-2.552766
+
+df.loc['G2'].loc[2]['B']
+output:
+-1.6289897417905879
+
+#cross-section
+--------------
+df.loc['G1']
+or
+df.xs('G1')
+output:
+		A		B
+Num		
+1	0.277855	0.224292
+2	1.203596	0.527428
+3	-0.459657	1.956026
+
+
+df.xs(1,level='Num')
+output:
+		A	B
+Groups		
+G1	0.277855	0.224292
+G2	-1.029223	0.157199
+

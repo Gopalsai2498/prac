@@ -1,0 +1,286 @@
+OmSriGaneshayaNAmah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+NumPy: A foundation for SciPy that allows you to eciently work with data in arrays.
+
+It is a Linear Algebra Library for Python. It is very imp for Data Science as almost all of the libraries in PyData Ecosystem rely on NumPy.
+
+Numpy is also incredibly fast, as it has bindings to C libraries.
+
+It is recommended to install Python using Anaconda distribution to make sure all underlying dependencies sync up with the use of a conda install
+
+If have Anaconda, install NumPy by going to your terminal or commond prompt:
+
+conda install numpy
+
+pip install numpy 
+
+* NumPy arrays are the main way we will use Numpy throughout
+* Numpy arrays essentially come in two flavors: vectors and matrices
+* Vectors are strictly 1-d arrays and matrices are 2-d, should note a matrix can still have only 1 row or 1 col
+
+
+pip install numpy
+
+import numpy as np
+
+#print numpy version
+print('numpy:{}'.format(np.__version__))
+
+
+A R R A Y S
+===========
+
+
+#define an array
+----------------
+mylist = [1,2,3,4]
+arr = np.array(mylist) #converting Python list into a Numpy array 
+print(arr)
+output:
+[1 2 3 4]
+
+#dimension of array
+-------------------
+print(arr.shape)
+
+(4,)
+
+#print("First row: %s") % myarray[0]  ### did not print as there was an error need to find the error
+
+
+=======================================================
+
+mymat = [[1,2,3],[4,5,6],[7,8,9]]
+
+import numpy as np
+
+#convert list into numpy array
+np.array(mymat)
+
+mymat
+output:
+array([[1, 2, 3],
+       [4, 5, 6],
+       [7, 8, 9]])
+
+
+#range function with numpy array
+
+np.arange()  ---- arange([start,] stop[,step,], dtype=None)
+evenly spaced values within interval
+
+np.arange(0,10)
+output:
+array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+np.arange(0,10,2)
+output:
+array([0, 2, 4, 6, 8])
+
+
+#to generate arrays of all zeroes with numpy
+np.zeros(3)
+output:
+array([0., 0., 0.])
+
+#pass a tuple in zeros function to get required dimensions
+np.zeros((3,3))
+output:
+array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]])
+
+
+#pass one values
+np.ones((3,5))
+output:
+array([[1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1.]])
+
+Note: this is a two-dimensional array as we can see after array two brackets like array([[......
+
+
+#linspace 
+returns evenly spaced numbers over a specified interval
+
+diff b/w linspace with arange
+
+np.arange() basically returns integers out from np.arange(0,10,2) start and stop with stepsize -- 
+
+
+linspace is going to take 3rd arg of the number of points we want 
+
+np.linspace()
+(start, stop, 3rd arg pass in a number)
+
+10 evenly spaced points 
+
+np.linspace(0,5,10)
+output:
+array([0.        , 0.55555556, 1.11111111, 1.66666667, 2.22222222,
+       2.77777778, 3.33333333, 3.88888889, 4.44444444, 5.        ])
+
+Note: np.linspace is a one-dimensional array as we can see one bracket like array([......
+
+likewise three dimensions will have three brakcets like array([[[.....
+
+
+np.arange(0,10,2)
+output:
+array([0, 2, 4, 6, 8])
+
+
+#identity matrix using numpy
+identity matrix is a two-dimensional square matrix, meaning the number of rows is the same as the number of columns with diagonal as zeroes and everything else as zeroes
+
+#identity matrix using numpy
+np.eye(3)
+
+
+output:
+array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+
+#arrays of random numbers
+
+#one-dimensional array
+np.random.rand(5)
+output:
+array([0.41735072, 0.54063517, 0.79625353, 0.88700753, 0.11857842])
+
+#two-dimensional array
+np.random.rand(3,3)
+output:
+array([[0.05418013, 0.62740537, 0.82741069],
+       [0.34970671, 0.47112369, 0.86725715],
+       [0.75592273, 0.1171101 , 0.26133474]])
+
+#return normal/Gaussian distribution samples
+#not uniform distribution from 0 to 1 but normal distribution
+#one-dimensional array of normal distribution
+np.random.randn(4)
+output:
+array([ 1.26998154,  0.26371277, -1.06579646,  0.11289602])
+
+#two-dimensional array of normal distribution
+np.random.randn(4,4)
+output:
+array([[ 0.74980348, -0.53739093, -0.22660631, -0.29367112],
+       [-0.41718183,  1.62813761,  0.01985783, -2.68292868],
+       [ 0.04418058,  0.51395555, -0.49935082, -0.48022418],
+       [-1.40348577,  0.90061016,  0.43888537,  2.03423588]])
+
+#one integer between 10 and 20
+np.random.randint(10,20)
+output:
+11
+
+#10 random integers between 1 and 50
+np.random.randint(1,50,10)
+output:
+array([49, 36, 19, 29, 45, 15,  7, 38, 42,  3])
+
+
+#reshape method -is to reshape the existing array of same data into new shape
+---------------
+it's going to return an array containing the same data of new shape 
+it modifies the shape of the existing array
+
+#array
+arr = np.arange(25)
+arr
+output:
+array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
+       17, 18, 19, 20, 21, 22, 23, 24])
+
+arr.reshape(5,5)
+array([[ 0,  1,  2,  3,  4],
+       [ 5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14],
+       [15, 16, 17, 18, 19],
+       [20, 21, 22, 23, 24]])
+
+#note make sure to give the required reshape number, for example if array with 25 integers need to provide 5*5=25 to reshape it else throws an error.
+
+
+#max method - finds maximum value in an array
+-----------
+
+ranint = np.random.randint(1,50,25)
+ranint
+output:
+array([39, 23, 19, 24, 11,  6, 26, 29,  7,  3,  4,  2, 19, 36, 33, 31, 39,
+       12, 17,  9, 15, 41, 21,  9,  2])
+
+#find maximum value in an array
+ranint.max()
+out:
+41
+
+
+#min method - finds minimum value in an array
+-----------
+
+#find minimum value in an array
+ranint.min()
+out:
+2
+
+#find location of max or min values in an array
+ranint.argmax()
+output:
+21
+
+ranint.argmin()
+output:
+11
+
+
+#shape - count of an array along with dimension
+------
+
+ranint.shape
+output:
+(25,)   #one dimensional array with 25 elements
+
+if it's
+(5,5)   #two dimensional array containing 25 elements
+
+
+
+#dtype - returns the data type of an array
+------
+
+ranint.dtype
+output:
+dtype('int32')
+
+Note: can modify writing the whole sentence like np.random by replacing
+-----
+
+from numpy.random import randint and then just use randint() instead of using numpy.random.randint()
+
+
+
+for example:
+-----------
+
+#10 random integers between 1 and 50
+np.random.randint(1,50,10)
+output:
+array([49, 36, 19, 29, 45, 15,  7, 38, 42,  3])
+
+
+from numpy.random import randint
+
+randint(1,50,10)                 #still will get the same output
+output:
+array([28, 49, 32, 41, 42,  7,  9, 45, 28, 41])
+
+
+==============================================

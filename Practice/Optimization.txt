@@ -1,0 +1,119 @@
+Optimization analysis
+
+Using pulp library in python
+
+https://www.youtube.com/watch?v=1hECt5mVfWo&list=PL_iP0SGUzx9SR_33wUp58T1B-lzO8qNrq
+
+
+
+The ABC company manufactures two types of golf bags:
+1. Standard bags 
+2. Deluxe bags
+
+If the company sells a standard bag, the company can get a profit of $10. If the company sells a deluxe bag, the company can get a profit of $9. Assume that the company can sell all bags it manufactures, how many standard bags and deluxe bags the company should manufacture, in order to reach a maximum profit?
+
+we need to find out the objective variables and decision variables first.
+
+The objective is to maximize total profit.
+
+How can we calculate profit?
+The total profit is dependent on the number of bags which it sells in each type.
+
+So let's denote:
+S - no. of standard bags were sold in total
+D - no. of deluxe bags were sold in total
+
+
+Objective variable - a maximum profit
+
+Decision variables
+The number of standard bags (S)
+The number of Deluxe bags (D)
+
+Objective function:
+  Total Profit = 10*S+9*D
+
+According to objective function, we can see that the more bags the company sells the more profits the company will get if the company doesnt have any manufacturing capacity limit. but that's just impossible in reality; the company is fixing the manufacturing limit.
+
+Let's look at manufacturing constraints:
+
+##Operations involved in manufacturing a golf bag
+  *cutting and dyeing the material
+  *sewing
+  *finishing (inserting umbrella holder, club separations, etc)
+  *inspection and packaging
+
+
+##Production requirement per golf bag:
+In order to manufacture one bag, this bag will go through 4 departments in this company.
+
+Below table shows how long will it take for one bag to go through one dept.
+----------------------------------------------
+                       Production Time(hours)
+                     -------------------------
+Department           Standard bag   Deluxe bag
+----------------------------------------------
+cutting & dyeing          7/10          1
+sewing                    1/2           5/6
+finishing                  1            2/3
+inspection & packaging    1/10          1/4
+----------------------------------------------
+
+for example, for manufacturing a standard bag, it takes 0.7 hours at cutting & dying department to process one bag. After the first-level process, it takes 0.5 hours to process the sewing process per bag. Then it will move to finishing department to process and it takes 1 hour to process the standard bag at this department. Finally, it moves to inspection & packaging department there it takes 0.1 hour to complete it.
+
+Of course this table also shows how long it will take each department to process a standard bag or deluxe bag.
+
+No matter how many standard bags and deluxe bags we want each department to work on, there are often seen capacity limits.
+
+For example, the available hours in cutting & dyeing is 630, the available labor hours in sewing is 600, how can we transform this capacity limits into constraints.
+
+Constraints:
+The table below shows the maximum manufacturing capacity that each department has:
+------------------------------------------------------
+Department                           Number of hours
+------------------------------------------------------
+Cutting & dyeing                           630
+Sewing                                     600
+Finishing                                  708
+Inspection & packaging                     135
+------------------------------------------------------
+
+Let us use cutting & dying as an example:
+
+Write the constraints in terms of decision variables.
+
+ 
+             |                  |    |                     |
+constraing1: |Hours of cutting &| le | Hours of cutting &  |
+             | dyeing time used |    |dyeing time available|                   |                  |    |                     |
+
+                        (7/10)(S)+1(D) le 630
+
+*le = less than equal to 
+
+No long how long it will be 0.7 * S + 1 * D cannot exceed capacity limit of cutting & dyeing department. Therefore, 0.7 * S + 1 * D should be less than or equal to 630 
+
+             |               |    |               |
+constraint2: |Hours of sewing| le |Hours of sewing|
+             |  time used    |    |time available |
+             |               |    |               |
+
+                     (1/2)(S)+(5/6)(D) le 600
+
+
+constraint3:
+
+
+constraint4:
+
+
+
+Further, here we also have an implicit constraint. No matter what the value for S & D will be in the future, they cannot be negative.
+
+
+non-negativity constraint - based on the fact that the number of standard or deluxe bags produced cannot be negative.
+
+                 S ge 0 and D ge 0 or S, D ge 0
+
+
+

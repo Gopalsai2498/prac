@@ -1,0 +1,168 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+
+Data Input & Output
+===================
+
+deal with writing and reading files
+-----------------------------------
+
+* csv
+* excel
+* html
+* sql
+
+need to install libraries with pip or conda
+
+#sql
+conda install sqlalchemy 
+pip install sqlalchemy
+
+#csv
+conda install lxml
+pip install lxml
+
+#html
+conda install html5lib
+pip install html5lib
+
+#
+conda install BeautifulSoup4
+pip install html5lib
+
+
+#get current directory 
+pwd                (O R)   getwd() in R
+output:
+(current/path)
+
+#change directory
+import os
+os.chdir('newpath')
+output:
+(newpath)
+
+
+
+#read csv file through pandas
+df_csv = pd.read_csv('C:/Users/TOSHIBA/Desktop/Udemy/Refactored_Py_DS_ML_Bootcamp-master/03-Python-for-Data-Analysis-Pandas/example.csv')
+
+         ( O R )
+
+#or if the path is in the current directory
+df_csv = pd.read_csv('example.csv')
+
+df_csv
+output:
+	a	b	c	d
+0	0	1	2	3
+1	4	5	6	7
+2	8	9	10	11
+3	12	13	14	15
+
+
+#write pandas file into csv file
+pd.read_csv('myfile')
+output:
+  Unnamed: 0	a	b	c	d
+0	0	0	1	2	3
+1	1	4	5	6	7
+2	2	8	9	10	11
+3	3	12	13	14	15
+
+
+#to avoid reindexing use index=False
+df_csv.to_csv('myfile1', index=False)
+
+#read csv file from current directory
+pd.read_csv('myfile1')
+output:
+	a	b	c	d
+0	0	1	2	3
+1	4	5	6	7
+2	8	9	10	11
+3	12	13	14	15
+
+Note: In this output, we have no unnamed 0 index
+
+Pandas can only import the data, but it cannot import formulas, images or macros
+
+#read an excel file
+pd.read_excel('Excel_Sample.xlsx')
+output:
+   Unnamed: 0	a	b	c	d
+0	0	0	1	2	3
+1	1	4	5	6	7
+2	2	8	9	10	11
+3	3	12	13	14	15
+
+#write as an excel file
+df1.to_excel('myxls.xlsx', sheet_name='Newsheet', index=False)
+
+#read excel file from current directory
+pd.read_excel('myxls.xlsx')
+output:
+  Unnamed: 0	a	b	c	d
+0	0	0	1	2	3
+1	1	4	5	6	7
+2	2	8	9	10	11
+3	3	12	13	14	15
+
+
+#read html file
+df2 = pd.read_html('http://www.fdic.gov/bank/individual/failed/banklist.html')
+type(df2
+output:
+list
+
+#to view the dataframe in the list
+df2[0].head()
+output:
+	Bank Name				City	ST	CERT	Acquiring Institution			Closing Date		Updated Date
+0	City National Bank of New Jersey	Newark	NJ	21111	Industrial Bank				November 1, 2019	December 19, 2019
+1	Resolute Bank				Maumee	OH	58317	Buckeye State Bank			October 25, 2019	December 19, 2019
+2	Louisa Community Bank			Louisa	KY	58112	Kentucky Farmers Bank Corporation	October 25, 2019	December 19, 2019
+
+
+
+
+
+     S Q L
+    =======
+
+#Create sequel engine
+from sqlalchemy import create_engine
+
+
+#create a small, temporary sequel light engine, database that's running in memory 
+engine = create_engine('sqlite:///:memory:')
+#This above engine is basically a connection
+
+dataframe:
+df1
+output:
+	a	b	c	d
+0	0	1	2	3
+1	4	5	6	7
+2	8	9	10	11
+3	12	13	14	15
+
+#writing a dataframe into the sequel engine
+df1.to_sql('sqlfile', engine)
+
+#reading an sql file from sequel engine/database
+sqldf = pd.read_sql('sqlfile', con=engine)
+
+sqldf
+output:
+	index	a	b	c	d
+0	0	0	1	2	3
+1	1	4	5	6	7
+2	2	8	9	10	11
+3	3	12	13	14	15
+
+
+

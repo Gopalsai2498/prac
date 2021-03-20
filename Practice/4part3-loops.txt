@@ -1,0 +1,184 @@
+OmSriGaneshayaNamah
+OmSriSaraswatyaiNamah
+OmSriSaiRam
+
+
+https://www.geeksforgeeks.org/python-speech-recognition-on-large-audio-files/
+
+
+Python-Part-3
+-------------
+
+for-loop
+--------
+'for' loops allow to iterate through a sequence 
+
+for temporary-variable-name in defined-variable:
+    print(temporary-variable-name)
+
+for example:
+
+seq=[1,2,3,4,5]
+
+for num in seq:
+    print(num)
+
+output:
+1
+2
+3
+4
+5
+
+
+for num in seq:
+    print('hello')
+
+output:
+hello
+hello
+hello
+hello
+hello
+
+
+while-loop
+----------
+
+i=1
+while i < 5:
+    print('is: {}'.format(i))
+if executed the above while-loop, will get an infite while-loop it means the cell will just go forever because 'i' will always be less than 5
+
+overcome infite loop execution: Kernel>Restart - click
+
+to avoid this issue:
+
+i=1
+while i < 5:
+    print('is: {}'.format(i))
+    i=i+1
+
+output:
+i is: 1
+i is: 2
+i is: 3
+i is: 4
+
+
+range
+-----
+
+seq=[1,2,3,4,5]
+
+for x in seq:
+    print(x)
+
+output:
+1
+2
+3
+4
+5
+
+range is generator of numerical value 
+
+syn : range(start num, end num)
+
+range(0,5) --->  range(0,5)
+
+for x in range(0,5):
+    print(x)
+
+output:
+0
+1
+2
+3
+4
+
+Range is a generator, but if want this to be a list
+
+range(0,5) --->  range(0,5) --- it's a generator
+
+#convert range into list
+list(range(0,5)) ---> [0,1,2,3,4]
+
+#by default starting num is zero
+list(range(10)) ---> [0,1,2,3,4,5,6,7,8,9]
+
+for x in range(10):
+    print(x)
+
+
+List comprehension:
+-------------------
+allows you to save a bunch of writing we're trying to create a 'for-loop' to create a list
+
+list
+--------------
+x = [1,2,3,4]
+
+empty list
+----------
+out = []
+
+for num in x:
+    out.append(num**2)
+
+print(out)
+output:
+[1,4,9,16]  ## it squared every num in x
+
+
+for num in x:
+    out.append(num**3)
+
+each time we execute this code, and every time it appends the data to the empty variable which here in this case was 'out' variable 
+
+translate the above 'for-loop' code into list comprehension
+
+
+for num in x:
+  print(x)
+or
+[num for num in x]
+
+
+for num in x:
+  print(num*2)
+or
+[num**2 for num in x] #it's kind of a for-loop backwards
+
+out=[num**2 for num in x]
+print(out)
+
+
+i = 1
+while i < 5:
+    print(i)
+    i=i+1
+
+n=99
+if n<100:
+    print('first')
+else:
+    print('last')
+
+if n<100:
+    print('first')
+else:
+    print('last')
+
+n=8
+if n>10:
+    print('first')
+elif n==8:
+    print('second')
+else:
+    print('last')
+
+def mysum(x,y):
+    return x+y
+
+mysum(5,8)
